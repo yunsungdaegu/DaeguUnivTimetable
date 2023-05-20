@@ -8,4 +8,14 @@
     <string name="login_text">로그인</string>
     <string name="login_student_id">학번</string>
     <string name="login_password">비밀번호</string>
+
+    <string name="semester_year">년도</string>
+    <string name="semester">학기</string>
+    <string name="semester_title">수업시간표를 가져올\n학기를 선택하세요.</string>
+    <string name="semester_next">가져오기</string>
+    <string name="semester_error">학기를 선택하세요.</string>
+    <string-array name="semester">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>

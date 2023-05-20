@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".App"
@@ -17,6 +17,9 @@
         android:theme="@style/Theme.DaeguUnivTimetable"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.SemesterActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.LoginActivity"
             android:exported="true">
             <intent-filter>
@@ -27,8 +30,7 @@
         </activity>
         <activity
             android:name=".presentation.MainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
     </application>
 
 </manifest>

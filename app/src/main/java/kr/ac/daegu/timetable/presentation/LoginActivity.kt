@@ -1,6 +1,7 @@
 package kr.ac.daegu.timetable.presentation
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -40,7 +41,8 @@ class LoginActivity : AppCompatActivity(), EventBus {
         super.handleEvent(context, event)
         when (event) {
             LoginEvent.LoginSuccess -> {
-
+                startActivity(Intent(this, SemesterActivity::class.java))
+                finish()
             }
             LoginEvent.LoginFail -> {
                 toast(resources.getString(R.string.login_fail))

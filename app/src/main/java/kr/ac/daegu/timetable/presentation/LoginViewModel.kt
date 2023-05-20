@@ -24,14 +24,14 @@ class LoginViewModel @Inject constructor(
     init {
         setFlow(Constants.LOGIN_STUDENT_ID)
         setFlow(Constants.LOGIN_PASSWORD)
-        setFlow(Constants.LOGIN_READY, false)
+        setFlow(Constants.READY, false)
 
         // auto login check
         viewModelScope.launch {
             studentDataStore.readStudent()?.let {
                 getStringFlow(Constants.LOGIN_STUDENT_ID).value = it.studentId
                 getStringFlow(Constants.LOGIN_PASSWORD).value = it.password
-                isFlow(Constants.LOGIN_READY).value = true
+                isFlow(Constants.READY).value = true
                 doLogin()
             }
         }
@@ -44,7 +44,7 @@ class LoginViewModel @Inject constructor(
             sendEvent(BaseEvent.NetworkFail)
             return@launch
         }
-        isFlow(Constants.LOGIN_READY).value = true
+        isFlow(Constants.READY).value = true
         withContext(Dispatchers.IO) {
             loginUseCase(studentId, password).onSuccess {
                 if (it) {
@@ -54,7 +54,7 @@ class LoginViewModel @Inject constructor(
                     // 로그인 실패
                     sendEvent(LoginEvent.LoginFail)
                 }
-                isFlow(Constants.LOGIN_READY).value = false
+                isFlow(Constants.READY).value = false
                 studentDataStore.saveStudent(Student(studentId, password))
             }.onFailure {
                 sendEvent(BaseEvent.Error(it))
