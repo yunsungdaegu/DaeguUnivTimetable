@@ -6,7 +6,9 @@ import kr.ac.daegu.timetable.data.utils.cookie
 import kr.ac.daegu.timetable.data.utils.loginApi
 import kr.ac.daegu.timetable.data.utils.ssoApi
 import kr.ac.daegu.timetable.domain.login.repository.LoginRepository
+import java.io.BufferedReader
 import java.io.DataOutputStream
+import java.net.HttpURLConnection
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
@@ -14,7 +16,7 @@ class LoginRepositoryImpl(
     private val requestUtil: RequestUtil
 ) : LoginRepository {
 
-    override suspend fun login(studentId: String, password: String) {
+    override suspend fun login(studentId: String, password: String): Boolean {
         requestUtil.getRequest {
             ssoApi.process(
                 studentId,
@@ -23,17 +25,17 @@ class LoginRepositoryImpl(
                 BuildConfig.BASE_URL,
             )
         }
-        ssoLogin(studentId)
+        return ssoLogin(studentId)
     }
 
-    private suspend fun ssoLogin(studentId: String) {
+    private suspend fun ssoLogin(studentId: String): Boolean {
         requestUtil.getRequest {
             loginApi.ssoLogin()
         }
-        login(studentId)
+        return login(studentId)
     }
 
-    private fun login(studentId: String) {
+    private fun login(studentId: String): Boolean {
         val url = URL("${BuildConfig.BASE_URL}${BuildConfig.TIGERSSTD_LOGIN}")
         val connection = url.openConnection() as HttpsURLConnection
         connection.requestMethod = "POST"
@@ -46,6 +48,13 @@ class LoginRepositoryImpl(
         wr.writeBytes(postParams)
         wr.flush()
         wr.close()
+        val sb = StringBuilder()
+        val responseCode = connection.responseCode
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            val allText: String = connection.inputStream.bufferedReader().use(BufferedReader::readText)
+            sb.append(allText.trim())
+        }
         connection.disconnect()
+        return sb.toString().split(studentId).size >= 4
     }
 }

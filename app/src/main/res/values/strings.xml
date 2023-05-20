@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">DaeguUnivTimetable</string>
 
+    <string name="network">네트워크 연결 상태를 확인해주세요.</string>
+    <string name="error">오류가 발생했습니다. [%s]</string>
+    <string name="login_fail">로그인을 실패했습니다. 학번/비밀번호를 다시 확인해주세요.</string>
+
     <string name="login_text">로그인</string>
     <string name="login_student_id">학번</string>
     <string name="login_password">비밀번호</string>

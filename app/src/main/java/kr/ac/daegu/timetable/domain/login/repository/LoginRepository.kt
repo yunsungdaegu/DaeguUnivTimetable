@@ -5,5 +5,5 @@ interface LoginRepository {
     suspend fun login(
         studentId: String,
         password: String
-    )
+    ): Boolean
 }
