@@ -5,6 +5,9 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 android {
     namespace 'kr.ac.daegu.timetable'
     compileSdk 33
@@ -17,6 +20,14 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "SSO_URL", properties["sso_url"])
+        buildConfigField("String", "SSO_END", properties["sso_end"])
+
+        buildConfigField("String", "BASE_URL", properties["base_url"])
+        buildConfigField("String", "TIGERSSTD_SSO", properties["tigersstd_sso"])
+        buildConfigField("String", "TIGERSSTD_LOGIN", properties["tigersstd_login"])
+        buildConfigField("String", "TIGERSSTD_TIMETABLE", properties["tigersstd_timetable"])
     }
 
     buildTypes {
@@ -34,6 +45,9 @@ android {
     }
     dataBinding {
         enabled = true
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }
 
