@@ -24,6 +24,7 @@ class LoginActivity : AppCompatActivity(), EventBus {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         binding.vm = viewModel
+        binding.lifecycleOwner = this
         setContentView(binding.root)
         setHandleEvent(this, this, viewModel)
         setLogoImage()
@@ -38,6 +39,9 @@ class LoginActivity : AppCompatActivity(), EventBus {
     override fun handleEvent(context: Context?, event: BaseEvent) {
         super.handleEvent(context, event)
         when (event) {
+            LoginEvent.LoginSuccess -> {
+
+            }
             LoginEvent.LoginFail -> {
                 toast(resources.getString(R.string.login_fail))
             }

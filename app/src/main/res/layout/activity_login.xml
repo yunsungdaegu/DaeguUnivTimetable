@@ -2,6 +2,7 @@
 <layout>
     <data>
         <import type="kr.ac.daegu.timetable.presentation.utils.Constants"/>
+        <import type="android.view.View"/>
         <variable
             name="vm"
             type="kr.ac.daegu.timetable.presentation.LoginViewModel" />
@@ -46,5 +47,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
+        <View
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@color/shadow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{vm.isFlow(Constants.LOGIN_READY) ? View.VISIBLE : View.GONE}"/>
+        <ProgressBar
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="@{vm.isFlow(Constants.LOGIN_READY) ? View.VISIBLE : View.GONE}"
+            android:layout_width="70dp"
+            android:layout_height="70dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
