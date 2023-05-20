@@ -1,7 +1,8 @@
-package kr.ac.daegu.timetable
+package kr.ac.daegu.timetable.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import kr.ac.daegu.timetable.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
