@@ -2,6 +2,7 @@ package kr.ac.daegu.timetable.presentation
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -54,7 +55,8 @@ class SemesterActivity : AppCompatActivity(), EventBus {
     override fun handleEvent(context: Context?, event: BaseEvent) {
         super.handleEvent(context, event)
         if (event == SemesterViewModel.SemesterEvent.TimetableLoadSuccess) {
-
+            startActivity(Intent(this, TimetableActivity::class.java))
+            finish()
         }
     }
 }

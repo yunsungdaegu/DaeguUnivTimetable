@@ -48,7 +48,8 @@ class LoginActivity : AppCompatActivity(), EventBus {
                 toast(resources.getString(R.string.login_fail))
             }
             LoginEvent.TimetableLoadSuccess -> {
-
+                startActivity(Intent(this, TimetableActivity::class.java))
+                finish()
             }
         }
     }

@@ -82,4 +82,7 @@ dependencies {
 
     // https://github.com/skydoves/PowerSpinner
     implementation "com.github.skydoves:powerspinner:1.2.6"
+
+    // https://github.com/tlaabs/TimetableView
+    implementation 'com.github.tlaabs:TimetableView:1.0.3-fx1'
 }
