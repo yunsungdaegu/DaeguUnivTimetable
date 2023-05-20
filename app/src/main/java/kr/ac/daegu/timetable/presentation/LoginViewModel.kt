@@ -9,6 +9,7 @@ import kr.ac.daegu.timetable.core.base.BaseEvent
 import kr.ac.daegu.timetable.core.base.BaseViewModel
 import kr.ac.daegu.timetable.core.utils.NetworkUtil
 import kr.ac.daegu.timetable.data.login.repository.datasource.StudentDataStore
+import kr.ac.daegu.timetable.data.timetable.repository.datasource.TimetableDataStore
 import kr.ac.daegu.timetable.domain.login.model.Student
 import kr.ac.daegu.timetable.domain.login.usecase.LoginUseCase
 import kr.ac.daegu.timetable.presentation.utils.Constants
@@ -18,7 +19,8 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val networkUtil: NetworkUtil,
-    private val studentDataStore: StudentDataStore
+    private val studentDataStore: StudentDataStore,
+    private val timetableDataStore: TimetableDataStore
 ) : BaseViewModel() {
 
     init {
@@ -49,7 +51,10 @@ class LoginViewModel @Inject constructor(
             loginUseCase(studentId, password).onSuccess {
                 if (it) {
                     // 로그인 성공
-                    sendEvent(LoginEvent.LoginSuccess)
+                    if (timetableDataStore.readTimetableConfig() == null)
+                        sendEvent(LoginEvent.LoginSuccess)
+                    else
+                        sendEvent(LoginEvent.TimetableLoadSuccess)
                 } else {
                     // 로그인 실패
                     sendEvent(LoginEvent.LoginFail)
@@ -65,5 +70,6 @@ class LoginViewModel @Inject constructor(
     interface LoginEvent {
         object LoginSuccess: BaseEvent
         object LoginFail: BaseEvent
+        object TimetableLoadSuccess: BaseEvent
     }
 }

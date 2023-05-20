@@ -47,6 +47,9 @@ class LoginActivity : AppCompatActivity(), EventBus {
             LoginEvent.LoginFail -> {
                 toast(resources.getString(R.string.login_fail))
             }
+            LoginEvent.TimetableLoadSuccess -> {
+
+            }
         }
     }
 }

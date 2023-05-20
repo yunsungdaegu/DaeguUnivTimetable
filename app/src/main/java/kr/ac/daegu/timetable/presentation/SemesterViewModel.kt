@@ -20,8 +20,6 @@ class SemesterViewModel @Inject constructor(
 
     init {
         setFlow(Constants.READY, false)
-
-        // 시간표를 가지고 있는지 체크
     }
 
     fun doNext(year: String, semester: String) = viewModelScope.launch {
@@ -32,8 +30,12 @@ class SemesterViewModel @Inject constructor(
         }
         withContext(Dispatchers.IO) {
             getTimetableUseCase(year, semester).onSuccess {
-                // 시간표 파싱 및 저장
+                sendEvent(SemesterEvent.TimetableLoadSuccess)
             }
         }
+    }
+
+    interface SemesterEvent {
+        object TimetableLoadSuccess: BaseEvent
     }
 }

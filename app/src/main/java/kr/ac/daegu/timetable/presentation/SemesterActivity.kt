@@ -53,5 +53,8 @@ class SemesterActivity : AppCompatActivity(), EventBus {
 
     override fun handleEvent(context: Context?, event: BaseEvent) {
         super.handleEvent(context, event)
+        if (event == SemesterViewModel.SemesterEvent.TimetableLoadSuccess) {
+
+        }
     }
 }

@@ -5,5 +5,5 @@ interface TimetableRepository {
     suspend fun getTimetable(
         year: String,
         semester: String
-    ): String
+    )
 }
