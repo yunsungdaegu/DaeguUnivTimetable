@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">DaeguUnivTimetable</string>
+
+    <string name="login_text">로그인</string>
+    <string name="login_student_id">학번</string>
+    <string name="login_password">비밀번호</string>
 </resources>

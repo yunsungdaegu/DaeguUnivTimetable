@@ -25,4 +25,10 @@ abstract class BaseViewModel: ViewModel() {
         else
             _flow[key] = MutableStateFlow(any)
     }
+
+    @Suppress("UNCHECKED_CAST")
+    fun getFlow(key: String) = _flow[key] as MutableStateFlow<Any>
+
+    @Suppress("UNCHECKED_CAST")
+    fun getStringFlow(key: String) = _flow[key] as MutableStateFlow<String>
 }
