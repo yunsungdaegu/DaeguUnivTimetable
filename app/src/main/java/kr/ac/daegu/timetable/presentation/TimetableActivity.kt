@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.viewModels
 import com.github.tlaabs.timetableview.Schedule
 import com.github.tlaabs.timetableview.Time
@@ -30,6 +32,7 @@ class TimetableActivity : AppCompatActivity(), EventBus {
         setContentView(binding.root)
         setHandleEvent(this, this, viewModel)
         setTimetable()
+        setSupportActionBar(binding.toolbar)
     }
 
     override fun handleEvent(context: Context?, event: BaseEvent) {
@@ -57,5 +60,25 @@ class TimetableActivity : AppCompatActivity(), EventBus {
             val schedule = viewModel.sel2?.get(idx)!!
             Log.d("log", "click schedule ${schedule.NAME_KR}")
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.timetable, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_opensource -> { // 오픈소스라이선스
+
+            }
+            R.id.menu_schedule -> { // 학기 재선택
+
+            }
+            R.id.menu_logout -> { // 로그아웃
+
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

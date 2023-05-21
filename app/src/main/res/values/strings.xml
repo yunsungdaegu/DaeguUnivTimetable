@@ -29,4 +29,8 @@
         <item>토</item>
     </string-array>
     <string name="timetable_welcome">%s님 안녕하세요!</string>
+
+    <string name="menu_opensource">오픈소스라이선스</string>
+    <string name="menu_schedule">학기 재선택</string>
+    <string name="menu_logout">로그아웃</string>
 </resources>
