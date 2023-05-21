@@ -26,6 +26,8 @@ class TimetableRepositoryImpl(
         val xml = connect(BuildConfig.TIGERSSTD_TIMETABLE, postParams)
 
         // xml 파싱
+        timetableDao.removeAllTimetableSEL2()
+        timetableDao.removeAllTimetableSEL5()
         try {
             val parserFactory = XmlPullParserFactory.newInstance()
             val xmlParser = parserFactory.newPullParser()
@@ -45,8 +47,12 @@ class TimetableRepositoryImpl(
                         }
                         "Dataset" -> {
                             when(xmlParser.getAttributeValue(0)) {
-                                "SEL2" -> readSEL2(xmlParser) // 시간표
-                                "SEL5" -> readSEL5(xmlParser) // 가상 시간표
+                                "SEL2" -> {
+                                    readSEL2(xmlParser)
+                                } // 시간표
+                                "SEL5" -> {
+                                    readSEL5(xmlParser)
+                                } // 가상 시간표
                             }
                         }
                     }
@@ -63,12 +69,17 @@ class TimetableRepositoryImpl(
             parser.next()
         val hashMap = HashMap<String, SEL2>()
         var gwamok = ""
-        while (parser.name != "Rows") {
+        var position = -1
+        while ((parser.name != "Rows")  and (parser.eventType != XmlPullParser.END_DOCUMENT)) {
             if (parser.eventType == XmlPullParser.START_TAG && parser.name != "Row") {
                 when (parser.getAttributeValue(0)) {
                     "GWAMOK" -> {
-                        gwamok = parser.nextText()
-                        hashMap[gwamok] = SEL2(GWAMOK = gwamok.toInt())
+                        val text = parser.nextText()
+                        if (gwamok != "${text}_${position}") {
+                            position++
+                            gwamok = "${text}_${position}"
+                            hashMap[gwamok] = SEL2(GWAMOK = gwamok)
+                        }
                     }
                     "TM" -> {
                         val t = parser.nextText().split("-")
@@ -88,7 +99,6 @@ class TimetableRepositoryImpl(
             parser.next()
         }
         // 시간표 저장
-        timetableDao.removeAllTimetableSEL2()
         timetableDao.insertTimetableSEL2(hashMap.values.toList().mapperToSEL2EntityList())
     }
 
@@ -97,7 +107,7 @@ class TimetableRepositoryImpl(
             parser.next()
         val array = ArrayList<SEL5>()
         var position = -1
-        while (parser.name != "Rows") {
+        while ((parser.name != "Rows") and (parser.eventType != XmlPullParser.END_DOCUMENT)) {
             if (parser.eventType == XmlPullParser.START_TAG && parser.name != "Row") {
                 when (parser.getAttributeValue(0)) {
                     "GWAMOK" -> {
@@ -111,7 +121,6 @@ class TimetableRepositoryImpl(
             parser.next()
         }
         // 가상 시간표 저장
-        timetableDao.removeAllTimetableSEL5()
         timetableDao.insertTimetableSEL5(array.toList().mapperToSEL5EntityList())
     }
 }

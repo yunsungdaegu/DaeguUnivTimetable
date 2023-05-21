@@ -1,15 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="kr.ac.daegu.timetable.presentation.utils.Constants"/>
         <variable
             name="vm"
             type="kr.ac.daegu.timetable.presentation.TimetableViewModel" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.TimetableActivity">
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.appbar.AppBarLayout
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@{vm.getStringFlow(Constants.TIMETABLE_NAME)}">
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_marginStart="20dp"
+                    android:text="@{vm.getStringFlow(Constants.TIMETABLE_SEMESTER)}"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <com.github.tlaabs.timetableview.TimetableView
+                    android:id="@+id/timetable"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:column_count="7"
+                    app:header_title="@array/timetable_header"/>
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="20dp"
+                    android:text="@{vm.getStringFlow(Constants.TIMETABLE_SEL5)}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

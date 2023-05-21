@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "sel2")
 data class SEL2Entity(
     @PrimaryKey
-    var GWAMOK: Int,
+    var GWAMOK: String,
     var TM_START_H: Int,
     var TM_START_M: Int,
     var TM_END_H: Int,
