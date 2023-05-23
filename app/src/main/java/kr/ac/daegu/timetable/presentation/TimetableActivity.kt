@@ -1,6 +1,7 @@
 package kr.ac.daegu.timetable.presentation
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -73,7 +74,8 @@ class TimetableActivity : AppCompatActivity(), EventBus {
 
             }
             R.id.menu_schedule -> { // 학기 재선택
-
+                startActivity(Intent(this, SemesterActivity::class.java))
+                finish()
             }
             R.id.menu_logout -> { // 로그아웃
 
