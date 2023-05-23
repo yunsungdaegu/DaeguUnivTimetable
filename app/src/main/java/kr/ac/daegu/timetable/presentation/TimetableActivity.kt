@@ -2,6 +2,7 @@ package kr.ac.daegu.timetable.presentation
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -98,6 +99,14 @@ class TimetableActivity : AppCompatActivity(), EventBus {
         binding.timetable.setOnStickerSelectEventListener { idx, schedules ->
             val schedule = viewModel.sel2?.get(idx)!!
             Log.d("log", "click schedule ${schedule.NAME_KR}")
+            val room = schedule.SUUP_ROOMNAME.split("-")[0]
+            if (location[room] == null)
+                toast("강의실을 찾을 수 없습니다")
+            else {
+                val uri = Uri.parse("geo: ${location[room]?.first},${location[room]?.second}?z=18")
+                val intent = Intent(Intent.ACTION_VIEW, uri)
+                startActivity(intent)
+            }
         }
     }
 
