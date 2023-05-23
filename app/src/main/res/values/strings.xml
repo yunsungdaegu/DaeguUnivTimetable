@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DaeguUnivTimetable</string>
+    <string name="app_name">DU 시간표</string>
 
     <string name="network">네트워크 연결 상태를 확인해주세요.</string>
     <string name="error">오류가 발생했습니다. [%s]</string>
