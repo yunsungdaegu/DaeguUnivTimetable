@@ -9,16 +9,23 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.github.tlaabs.timetableview.Schedule
 import com.github.tlaabs.timetableview.Time
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kr.ac.daegu.timetable.R
 import kr.ac.daegu.timetable.core.base.BaseEvent
 import kr.ac.daegu.timetable.core.utils.EventBus
 import kr.ac.daegu.timetable.core.utils.setHandleEvent
 import kr.ac.daegu.timetable.core.utils.toast
+import kr.ac.daegu.timetable.data.login.repository.datasource.StudentDataStore
 import kr.ac.daegu.timetable.databinding.ActivityTimetableBinding
+import kr.ac.daegu.timetable.domain.login.model.Student
 import kr.ac.daegu.timetable.presentation.TimetableViewModel.TimetableEvent.LoadingSuccess
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TimetableActivity : AppCompatActivity(), EventBus {

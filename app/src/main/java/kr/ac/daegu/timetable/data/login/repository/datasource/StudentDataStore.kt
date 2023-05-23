@@ -25,7 +25,7 @@ class StudentDataStore(private val dataStore: DataStore<Preferences>) {
         val preferences = dataStore.data.first()
         val studentId = preferences[stringPreferencesKey(studentId)]
         val password = preferences[stringPreferencesKey(password)]
-        return if ((studentId == null) or (password == null)) null
+        return if ((studentId.isNullOrEmpty()) or (password.isNullOrEmpty())) null
         else Student(studentId!!, password!!)
     }
 }
