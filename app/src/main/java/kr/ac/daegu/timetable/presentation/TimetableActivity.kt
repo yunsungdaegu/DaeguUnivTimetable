@@ -122,6 +122,8 @@ class TimetableActivity : AppCompatActivity(), EventBus {
         return true
     }
 
+    @Inject
+    lateinit var dataStore: StudentDataStore
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_opensource -> { // 오픈소스라이선스
@@ -132,6 +134,16 @@ class TimetableActivity : AppCompatActivity(), EventBus {
                 finish()
             }
             R.id.menu_logout -> { // 로그아웃
+                lifecycleScope.launch {
+                    withContext(Dispatchers.IO) {
+                        dataStore.saveStudent(Student("", ""))
+                    }.runCatching {
+                    }.onSuccess {
+                        moveTaskToBack(true)
+                        finishAndRemoveTask()
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                    }
+                }
 
             }
         }
