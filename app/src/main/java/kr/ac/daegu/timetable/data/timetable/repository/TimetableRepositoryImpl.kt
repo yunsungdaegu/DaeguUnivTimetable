@@ -67,39 +67,46 @@ class TimetableRepositoryImpl(
     private fun readSEL2(parser: XmlPullParser) {
         while ((parser.name != "Row") and (parser.eventType != XmlPullParser.END_DOCUMENT))
             parser.next()
-        val hashMap = HashMap<String, SEL2>()
-        var gwamok = ""
-        var position = -1
+        /** 수업이 1주일에 2번이고 연속적이라면 파싱할 수 없는 케이스가 있어 로직 수정 **/
+        val array = ArrayList<SEL2>()
         while ((parser.name != "Rows")  and (parser.eventType != XmlPullParser.END_DOCUMENT)) {
             if (parser.eventType == XmlPullParser.START_TAG && parser.name != "Row") {
                 when (parser.getAttributeValue(0)) {
-                    "GWAMOK" -> {
+                    "SIGAN" -> {
                         val text = parser.nextText()
-                        if (gwamok != "${text}_${position}") {
-                            position++
-                            gwamok = "${text}_${position}"
-                            hashMap[gwamok] = SEL2(GWAMOK = gwamok)
-                        }
+                        array.add(SEL2(text))
                     }
                     "TM" -> {
                         val t = parser.nextText().split("-")
-                        if (hashMap[gwamok]?.TM_START_H == 0) {
-                            hashMap[gwamok]?.TM_START_H = t[0].substring(0, 2).toInt()
-                            hashMap[gwamok]?.TM_START_M = t[0].substring(2).toInt()
-                        }
-                        hashMap[gwamok]?.TM_END_H = t[1].substring(0, 2).toInt()
-                        hashMap[gwamok]?.TM_END_M = t[1].substring(2).toInt()
+                        array.last().TM_START_H = t[0].substring(0, 2).toInt()
+                        array.last().TM_START_M = t[0].substring(2).toInt()
+                        array.last().TM_END_H = t[1].substring(0, 2).toInt()
+                        array.last().TM_END_M = t[1].substring(2).toInt()
                     }
-                    "YOIL" -> hashMap[gwamok]?.YOIL = parser.nextText()
-                    "NAME_KR" -> hashMap[gwamok]?.NAME_KR = parser.nextText()
-                    "PROF_NM" -> hashMap[gwamok]?.PROF_NM = parser.nextText()
-                    "SUUP_ROOMNAME" -> hashMap[gwamok]?.SUUP_ROOMNAME = parser.nextText()
+                    "YOIL" -> array.last().YOIL = parser.nextText()
+                    "NAME_KR" -> array.last().NAME_KR = parser.nextText()
+                    "PROF_NM" -> array.last().PROF_NM = parser.nextText()
+                    "SUUP_ROOMNAME" -> array.last().SUUP_ROOMNAME = parser.nextText()
                 }
             }
             parser.next()
         }
         // 시간표 저장
-        timetableDao.insertTimetableSEL2(hashMap.values.toList().mapperToSEL2EntityList())
+        val timetable = ArrayList<SEL2>()
+        for (i in 0..array.lastIndex) {
+            val n = array[i]
+            n.GWAMOK = i.toString()
+            if (timetable.isEmpty()) {
+                timetable.add(n)
+                continue
+            }
+            if ((n.NAME_KR == timetable.last().NAME_KR) and
+                (n.YOIL == timetable.last().YOIL)) {
+                timetable.last().TM_END_H = n.TM_END_H
+                timetable.last().TM_END_M = n.TM_END_M
+            } else timetable.add(n)
+        }
+        timetableDao.insertTimetableSEL2(timetable.toList().mapperToSEL2EntityList())
     }
 
     private fun readSEL5(parser: XmlPullParser) {
