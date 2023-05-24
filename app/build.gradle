@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.android.gms.oss-licenses-plugin'
 }
 
 Properties properties = new Properties()
@@ -85,4 +86,5 @@ dependencies {
 
     // https://github.com/tlaabs/TimetableView
     implementation 'com.github.yunsungdaegu:TimetableView:1.0.5'
+    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
 }
