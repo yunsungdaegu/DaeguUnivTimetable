@@ -8,8 +8,9 @@ DU 시간표는 대구대학교 학생들이 시간표를 한눈에 확인하고
   * 강의 이름
   * 강의실
   * 강의 시간 및 요일
+![시간표](https://github.com/yunsungdaegu/DaeguUnivTimetable/assets/129020723/c8bd1931-42ac-41f2-9910-aa6b7fa34242)
 
 ### 강의실 찾기
 내 시간표에서 강의실 위치를 찾고 싶은 수업을 터치할 시 해당 수업의 강의실 위치를 당신의 휴대폰에 설치된 지도 앱을 통해 화면에 띄워줍니다.
-
+![시간표2](https://github.com/yunsungdaegu/DaeguUnivTimetable/assets/129020723/07b02b0c-66af-4102-8754-c1117c8031b3)
 ## License
