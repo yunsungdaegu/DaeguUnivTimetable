@@ -10,13 +10,13 @@ DU 시간표는 대구대학교 종합정보시스템과 연동하여 학생들�
   * 강의 시간 및 요일
   * 가상 강의
 
-![시간표 최종 1](https://github.com/yunsungdaegu/DaeguUnivTimetable/assets/129020723/9270d3a2-8aab-46d6-9a1a-7ea6a104b96f)
+![시간표 최종 1 (1)](https://github.com/yunsungdaegu/DaeguUnivTimetable/assets/129020723/da33883f-2c51-4fb2-b262-3115a447c833)
 
 ### 강의실 찾기
-내 시간표에서 수업 하나를 터치할 시 해당 수업의 강의실 위치를 당신의 휴대폰에 설치된 지도 앱을 통해 화면에 띄워줍니다.
+내 시간표에서 수업 하나를 터치하면 해당 수업의 강의실 위치를 당신의 휴대폰에 설치된 지도 앱을 통해 화면에 띄워줍니다.
 
-![시간표 최종 3](https://github.com/yunsungdaegu/DaeguUnivTimetable/assets/129020723/03914a5a-cced-4427-8870-3039efc8bfb6)
-![시간표 최종 2](https://github.com/yunsungdaegu/DaeguUnivTimetable/assets/129020723/c30a05f8-df06-47dd-9645-fa7d9ebfe0c4)
+![시간표 최종 2 (1)](https://github.com/yunsungdaegu/DaeguUnivTimetable/assets/129020723/5a4ad1df-33d8-489a-ba01-21ad5e41a00d)
+![시간표 최종 3 (1)](https://github.com/yunsungdaegu/DaeguUnivTimetable/assets/129020723/4f4de9c4-2eb9-40c4-b358-0027c19d24ff)
 
 ## License
 
