@@ -23,8 +23,10 @@ import kr.ac.daegu.timetable.core.utils.EventBus
 import kr.ac.daegu.timetable.core.utils.setHandleEvent
 import kr.ac.daegu.timetable.core.utils.toast
 import kr.ac.daegu.timetable.data.login.repository.datasource.StudentDataStore
+import kr.ac.daegu.timetable.data.timetable.repository.datasource.TimetableDataStore
 import kr.ac.daegu.timetable.databinding.ActivityTimetableBinding
 import kr.ac.daegu.timetable.domain.login.model.Student
+import kr.ac.daegu.timetable.domain.timetable.model.TimetableConfig
 import kr.ac.daegu.timetable.presentation.TimetableViewModel.TimetableEvent.LoadingSuccess
 import javax.inject.Inject
 
@@ -125,6 +127,8 @@ class TimetableActivity : AppCompatActivity(), EventBus {
 
     @Inject
     lateinit var dataStore: StudentDataStore
+    @Inject
+    lateinit var timetableDataStore: TimetableDataStore
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_opensource -> { // 오픈소스라이선스
@@ -139,11 +143,12 @@ class TimetableActivity : AppCompatActivity(), EventBus {
                 lifecycleScope.launch {
                     withContext(Dispatchers.IO) {
                         dataStore.saveStudent(Student("", ""))
+                        timetableDataStore.saveTimetableConfig(TimetableConfig("", "", ""))
                     }.runCatching {
                     }.onSuccess {
                         moveTaskToBack(true)
                         finishAndRemoveTask()
-                        android.os.Process.killProcess(android.os.Process.myPid());
+                        android.os.Process.killProcess(android.os.Process.myPid())
                     }
                 }
 

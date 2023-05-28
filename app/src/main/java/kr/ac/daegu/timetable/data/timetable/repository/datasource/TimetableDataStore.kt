@@ -28,7 +28,7 @@ class TimetableDataStore(private val dataStore: DataStore<Preferences>) {
         val name = preferences[stringPreferencesKey(name)]
         val year = preferences[stringPreferencesKey(year)]
         val semester = preferences[stringPreferencesKey(semester)]
-        return if (name == null) null
+        return if (name.isNullOrEmpty()) null
         else TimetableConfig(name, year!!, semester!!)
     }
 }
